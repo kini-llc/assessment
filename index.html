@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社長のための利益漏れ発見アセスメント | KINI合同会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1e3c6e;
+  --ink-light: #2d5494;
+  --ink-faint: #8a8a8a;
+  --paper: #faf8f4;
+  --cream: #f2ede4;
+  --accent: #c0392b;
+  --accent-dark: #96281b;
+  --accent-light: #fdf0ee;
+  --gold: #b8963e;
+  --border: #ddd8ce;
+  --success: #27ae60;
+  --warning: #e67e22;
+  --danger: #c0392b;
+  --safe: #27ae60;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--paper);
+  color: #1a1a1a;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--ink);
+  color: var(--white);
+  padding: 72px 24px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-eyebrow {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.hero-sub {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== INTRO ===== */
+.intro {
+  padding: 56px 24px;
+  text-align: center;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.intro-lead {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(18px, 4vw, 22px);
+  line-height: 1.9;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+.intro-body {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 2;
+  color: #4a4a4a;
+}
+.intro-body strong { color: var(--accent); font-weight: 700; }
+
+/* ===== ASSESSMENT ===== */
+.assessment {
+  padding: 56px 16px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.section-block {
+  margin-bottom: 48px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 24px;
+}
+.section-header {
+  border-left: 4px solid var(--accent);
+  padding-left: 16px;
+  margin-bottom: 28px;
+}
+.section-number {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.question {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--border);
+}
+.question:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.question-text {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+  color: #2a2a2a;
+}
+.question-text .q-num {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.option-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px 12px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a4a4a;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.option-btn:hover {
+  border-color: var(--ink-light);
+  background: var(--cream);
+}
+.option-btn.selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.option-btn[data-value="yes"].selected,
+.option-btn[data-value="unknown"].selected {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.option-btn[data-value="no"].selected {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+/* ===== SUBMIT ===== */
+.submit-area {
+  text-align: center;
+  padding: 40px 24px 80px;
+}
+.progress-text {
+  font-size: 14px;
+  color: var(--ink-faint);
+  margin-bottom: 20px;
+}
+.progress-text .progress-count {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.submit-btn {
+  display: inline-block;
+  padding: 18px 56px;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.submit-btn:hover:not(:disabled) {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(192,57,43,0.25);
+}
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* ===== RESULT ===== */
+.result-area {
+  display: none;
+  padding: 56px 16px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.result-area.show { display: block; }
+
+.result-headline {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.result-eyebrow {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.result-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.total-score-block {
+  background: var(--ink);
+  color: var(--white);
+  padding: 36px 24px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.total-score-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.total-score-number {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.total-score-number .total-max {
+  font-size: 24px;
+  color: rgba(255,255,255,0.6);
+  margin-left: 4px;
+}
+.total-score-tier {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding: 6px 16px;
+  display: inline-block;
+  border-radius: 20px;
+}
+.total-score-tier.tier-green { background: var(--success); }
+.total-score-tier.tier-yellow { background: var(--gold); }
+.total-score-tier.tier-orange { background: var(--warning); }
+.total-score-tier.tier-red { background: var(--accent); }
+.total-score-message {
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.max-leak-block {
+  background: var(--accent-light);
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 28px 24px;
+  margin-bottom: 32px;
+}
+.max-leak-label {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.max-leak-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 4.5vw, 26px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.max-leak-message {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #2a2a2a;
+}
+
+.category-results {
+  margin-bottom: 40px;
+}
+.category-result {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.cat-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.cat-result-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+  flex: 1;
+  min-width: 200px;
+}
+.cat-result-score {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 16px;
+  white-space: nowrap;
+}
+.cat-result-score.tier-green {
+  background: rgba(39,174,96,0.12);
+  color: var(--success);
+}
+.cat-result-score.tier-yellow {
+  background: rgba(184,150,62,0.15);
+  color: var(--gold);
+}
+.cat-result-score.tier-red {
+  background: rgba(192,57,43,0.12);
+  color: var(--accent);
+}
+.cat-result-bar {
+  height: 6px;
+  background: var(--cream);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.cat-result-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+.cat-result-bar-fill.tier-green { background: var(--success); }
+.cat-result-bar-fill.tier-yellow { background: var(--gold); }
+.cat-result-bar-fill.tier-red { background: var(--accent); }
+.cat-result-message {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #3a3a3a;
+}
+.cat-result-action {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+  color: var(--ink-light);
+}
+.cat-result-action strong { color: var(--ink); }
+
+/* ===== CTA ===== */
+.cta-block {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 40px 24px;
+  text-align: center;
+}
+.cta-eyebrow {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.cta-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 4.5vw, 26px);
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.cta-body {
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 28px;
+  color: rgba(255,255,255,0.9);
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 18px 48px;
+  background: var(--accent);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 4px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.cta-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(192,57,43,0.3);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: #152d54;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 13px;
+}
+footer .footer-brand {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+/* ===== EMAIL CAPTURE (inline form) ===== */
+.email-capture {
+  display: none;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 16px 80px;
+}
+.email-capture.show {
+  display: block;
+}
+.capture-box {
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 32px 24px;
+}
+.capture-eyebrow {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.capture-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.capture-lead {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #4a4a4a;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.capture-field {
+  margin-bottom: 16px;
+}
+.capture-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.capture-field label .required {
+  color: var(--accent);
+  font-size: 11px;
+  margin-left: 4px;
+}
+.capture-field input {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 15px;
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+.capture-field input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+.capture-field input.error {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.capture-error {
+  font-size: 12px;
+  color: var(--accent);
+  margin-top: 4px;
+  min-height: 16px;
+}
+.capture-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.capture-submit:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+.capture-submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.capture-loading {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.capture-privacy {
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 56px 20px 48px; }
+  .intro { padding: 40px 20px; }
+  .assessment { padding: 40px 12px; }
+  .section-block { padding: 24px 16px; }
+  .submit-btn { padding: 16px 40px; font-size: 16px; }
+  .total-score-number { font-size: 48px; }
+}
+
+/* ===== WordPress theme override (prevents h2/h3 contrast issues) ===== */
+.assessment h2.section-title,
+.assessment .section-title,
+.result-area .result-title,
+.result-area .max-leak-name,
+.result-area .cat-result-title {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--ink) !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+.assessment .section-header,
+.assessment .section-block,
+.result-area .total-score-block .total-score-message,
+.result-area .max-leak-block,
+.result-area .category-result,
+.result-area .cat-result-header {
+  background: transparent !important;
+  background-color: inherit !important;
+}
+.assessment .section-block { background-color: var(--white) !important; }
+.result-area .total-score-block { background-color: var(--ink) !important; }
+.result-area .total-score-block .total-score-tier,
+.result-area .total-score-block .total-score-number,
+.result-area .total-score-block .total-score-label,
+.result-area .total-score-block .total-score-message,
+.result-area .cta-block .cta-title,
+.result-area .cta-block .cta-body,
+.result-area .cta-block .cta-eyebrow {
+  color: inherit !important;
+}
+.result-area .max-leak-block { background-color: var(--accent-light) !important; }
+.result-area .category-result { background-color: var(--white) !important; }
+.result-area .cta-block { background-color: var(--ink) !important; }
+.result-area .cta-block .cta-title { color: var(--white) !important; }
+.result-area .cta-block .cta-body { color: rgba(255,255,255,0.9) !important; }
+.result-area .cta-block .cta-eyebrow { color: var(--gold) !important; }
+.modal h2,
+.modal .modal-title { color: var(--ink) !important; background: transparent !important; }
+.email-capture h2,
+.email-capture .capture-title { color: var(--ink) !important; background: transparent !important; }
+.email-capture .capture-box { background-color: var(--white) !important; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">PROFIT LEAK ASSESSMENT</div>
+  <h1>社長のための<br>利益漏れ発見アセスメント</h1>
+  <p class="hero-sub">
+    20問・3分でわかる、御社の利益漏れポイント。<br>
+    「売上はあるのに利益が残らない」<br>本当の原因を、4つの領域から見つけます。
+  </p>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <p class="intro-lead">
+    新しい売上を取りに行く前に、<br>
+    まず今ある<strong>利益の漏れ</strong>を見つけませんか。
+  </p>
+  <div class="intro-body">
+    売上はあるのに、なぜか利益が残らない。<br>
+    そう感じている経営者の多くは、利益が漏れている「構造」の問題を抱えている可能性があります。<br><br>
+    このアセスメントでは、<strong>4つの領域・20問</strong>から御社の利益漏れポイントを診断し、<br>
+    最初に手をつけるべき改善領域を明確にします。
+  </div>
+</section>
+
+<!-- ASSESSMENT FORM -->
+<section class="assessment" id="assessmentForm">
+
+  <!-- SECTION 1 -->
+  <div class="section-block">
+    <div class="section-header">
+      <div class="section-number">領域 ①</div>
+      <h2 class="section-title">「価値が届いていない」漏れ</h2>
+    </div>
+
+    <div class="question" data-q="1">
+      <p class="question-text"><span class="q-num">Q1</span>自社商品の「本当の価値」について、社員によって説明の仕方がバラバラになっていませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="2" data-reverse="true">
+      <p class="question-text"><span class="q-num">Q2</span>「誰の・どんな困りごとを・どう解決するか」を、一枚の紙だけで伝えることができますか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="3">
+      <p class="question-text"><span class="q-num">Q3</span>直近3ヶ月で、見積もりを出したままフォローできず放置している案件はありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="4">
+      <p class="question-text"><span class="q-num">Q4</span>既存顧客に対して、追加提案やアップセルの機会を逃していると感じることはありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="5">
+      <p class="question-text"><span class="q-num">Q5</span>「品質はいいのに」と思いながら、値引きをしないと選ばれないという状況はありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-block">
+    <div class="section-header">
+      <div class="section-number">領域 ②</div>
+      <h2 class="section-title">「気づけば出ていく」漏れ</h2>
+    </div>
+
+    <div class="question" data-q="6">
+      <p class="question-text"><span class="q-num">Q6</span>気づかぬうちに払い続けられている、使っていないサブスクや月額サービスがあったりしませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="7">
+      <p class="question-text"><span class="q-num">Q7</span>もう3年以上も見直していない、主要な仕入れ先・外注先の単価はありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="8">
+      <p class="question-text"><span class="q-num">Q8</span>「なんとなく続けている」会議・付き合い・固定費はありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="9">
+      <p class="question-text"><span class="q-num">Q9</span>社内に動いていない在庫・使っていない備品が眠っていませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-block">
+    <div class="section-header">
+      <div class="section-number">領域 ③</div>
+      <h2 class="section-title">「人の頭の中に閉じ込められた」漏れ</h2>
+    </div>
+
+    <div class="question" data-q="10">
+      <p class="question-text"><span class="q-num">Q10</span>同じ情報を2回以上、別のシステムに手入力していませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="11">
+      <p class="question-text"><span class="q-num">Q11</span>「あの人がいないと回らない」業務が社内にありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="12">
+      <p class="question-text"><span class="q-num">Q12</span>議事録・報告書・契約書などを、毎回ゼロから書き起こしていませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="13">
+      <p class="question-text"><span class="q-num">Q13</span>月1回以上「この会議、意味あったかな」と感じることはありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="14">
+      <p class="question-text"><span class="q-num">Q14</span>社長自身が、本来は他の人でもできる作業に時間を取られていませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="15">
+      <p class="question-text"><span class="q-num">Q15</span>ベテラン社員が辞めた時に、そのノウハウが消えてしまう心配はありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-block">
+    <div class="section-header">
+      <div class="section-number">領域 ④</div>
+      <h2 class="section-title">「見ていないから放置されている」漏れ</h2>
+    </div>
+
+    <div class="question" data-q="16">
+      <p class="question-text"><span class="q-num">Q16</span>売上・粗利・主要な数字が別々の場所にあって、一覧で見られない状態になっていませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="17">
+      <p class="question-text"><span class="q-num">Q17</span>商品別・顧客別の利益率が、すぐには見えない状態だったりしませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="18">
+      <p class="question-text"><span class="q-num">Q18</span>顧客とのやり取り（電話・メール・訪問記録）が社内に散らばっていて、検索できない状態になっていたりしませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="19">
+      <p class="question-text"><span class="q-num">Q19</span>社長として気になっているのに数字で確認できていないということが、3つ以上あったりしませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+
+    <div class="question" data-q="20">
+      <p class="question-text"><span class="q-num">Q20</span>自分では放置していると認識しているのに、手をつけられていない課題はありませんか？</p>
+      <div class="options">
+        <button class="option-btn" data-value="yes">はい</button>
+        <button class="option-btn" data-value="no">いいえ</button>
+        <button class="option-btn" data-value="unknown">わからない</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <p class="progress-text">回答済み <span class="progress-count" id="progressCount">0</span> / 20問</p>
+    <button class="submit-btn" id="submitBtn" disabled>診断結果を見る</button>
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE (static form, works on GitHub Pages) -->
+<section class="email-capture" id="emailCapture">
+  <div class="capture-box">
+    <div class="capture-eyebrow">ALMOST DONE</div>
+    <div class="capture-title">診断結果をお送りします</div>
+    <p class="capture-lead">
+      ご回答ありがとうございました。<br>
+      お名前・会社名・メールアドレスをご入力いただくと、<br>
+      <strong>結果画面をすぐに表示</strong>すると同時に、<br>
+      <strong>診断結果をメールでもお送り</strong>します。
+    </p>
+
+    <div class="capture-field">
+      <label>お名前<span class="required">必須</span></label>
+      <input type="text" id="userName" placeholder="山田 太郎" autocomplete="name">
+      <div class="capture-error" id="errName"></div>
+    </div>
+
+    <div class="capture-field">
+      <label>会社名<span class="required">必須</span></label>
+      <input type="text" id="userCompany" placeholder="株式会社○○" autocomplete="organization">
+      <div class="capture-error" id="errCompany"></div>
+    </div>
+
+    <div class="capture-field">
+      <label>メールアドレス<span class="required">必須</span></label>
+      <input type="email" id="userEmail" placeholder="example@company.co.jp" autocomplete="email">
+      <div class="capture-error" id="errEmail"></div>
+    </div>
+
+    <button class="capture-submit" id="captureSubmitBtn">結果を見る&メールで受け取る</button>
+
+    <p class="capture-privacy">
+      ご入力いただいた情報は、診断結果のお送りと、<br>
+      KINI合同会社からのご連絡のみに使用いたします。
+    </p>
+  </div>
+</section>
+
+<!-- RESULT AREA -->
+<section class="result-area" id="resultArea">
+  <div class="result-headline">
+    <div class="result-eyebrow">YOUR DIAGNOSIS</div>
+    <h2 class="result-title">御社の利益漏れ診断結果</h2>
+  </div>
+
+  <!-- Total Score -->
+  <div class="total-score-block">
+    <div class="total-score-label">TOTAL SCORE</div>
+    <div class="total-score-number"><span id="totalScore">0</span><span class="total-max">/ 20</span></div>
+    <div class="total-score-tier" id="totalTier">—</div>
+    <div class="total-score-message" id="totalMessage"></div>
+  </div>
+
+  <!-- Max Leak Block -->
+  <div class="max-leak-block" id="maxLeakBlock">
+    <div class="max-leak-label">⚠ 御社の最大の利益漏れ</div>
+    <div class="max-leak-name" id="maxLeakName">—</div>
+    <div class="max-leak-message" id="maxLeakMessage"></div>
+  </div>
+
+  <!-- Category Results -->
+  <div class="category-results" id="categoryResults"></div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-eyebrow">NEXT STEP</div>
+    <div class="cta-title">利益漏れ発見<br>個別相談会のご案内</div>
+    <p class="cta-body">
+      診断結果をもとに、御社で最初に見るべき利益漏れを1つに絞り、<br>
+      改善の方向性を整理します。<br>
+      「全部解決します」ではなく、「最初に手をつけるべき1点を特定します」。
+    </p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScgpmQP3I5oXRVDnahvTEHPANiio567uQwur9GkzEpEuy-obQ/viewform?usp=header" target="_blank" class="cta-btn" id="ctaBtn">相談会に申し込む</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">KINI合同会社</div>
+  <div>まちのAI屋さん｜八王子から、中小企業の利益漏れをふさぐ</div>
+</footer>
+
+<script>
+// ===== IFRAME AUTO-RESIZE (postMessage to parent) =====
+function reportHeight() {
+  const h = Math.max(
+    document.documentElement.scrollHeight,
+    document.body.scrollHeight
+  );
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: 'kini-assessment-height', height: h }, '*');
+  }
+}
+// Report on load, resize, and periodically
+window.addEventListener('load', () => { setTimeout(reportHeight, 100); });
+window.addEventListener('resize', reportHeight);
+setInterval(reportHeight, 1000);
+
+// ===== STATE =====
+const answers = {};
+const totalQuestions = 20;
+
+// Categories mapping
+const categories = {
+  cat1: { name: '「価値が届いていない」漏れ', questions: [1,2,3,4,5], color: 'red' },
+  cat2: { name: '「気づけば出ていく」漏れ', questions: [6,7,8,9], color: 'red' },
+  cat3: { name: '「人の頭の中に閉じ込められた」漏れ', questions: [10,11,12,13,14,15], color: 'red' },
+  cat4: { name: '「見ていないから放置されている」漏れ', questions: [16,17,18,19,20], color: 'red' }
+};
+
+// ===== OPTION CLICK =====
+document.querySelectorAll('.question').forEach(qEl => {
+  const qNum = parseInt(qEl.dataset.q);
+  const reverse = qEl.dataset.reverse === 'true';
+  qEl.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      qEl.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const val = btn.dataset.value;
+      // Score: yes=1, unknown=1, no=0 (reverse for Q2)
+      let score;
+      if (reverse) {
+        score = (val === 'no' || val === 'unknown') ? 1 : 0;
+      } else {
+        score = (val === 'yes' || val === 'unknown') ? 1 : 0;
+      }
+      answers[qNum] = { value: val, score: score };
+      updateProgress();
+    });
+  });
+});
+
+function updateProgress() {
+  const answered = Object.keys(answers).length;
+  document.getElementById('progressCount').textContent = answered;
+  document.getElementById('submitBtn').disabled = (answered < totalQuestions);
+}
+
+// ===== GAS Web App URL (Replace after deploy) =====
+const GAS_WEBAPP_URL = 'PASTE_YOUR_GAS_WEBAPP_URL_HERE';
+
+// ===== SUBMIT (shows static email capture form) =====
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const capture = document.getElementById('emailCapture');
+  capture.classList.add('show');
+  document.getElementById('assessmentForm').style.display = 'none';
+  setTimeout(() => {
+    capture.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const nameInput = document.getElementById('userName');
+    if (nameInput) nameInput.focus();
+    reportHeight();
+  }, 100);
+});
+
+// ===== CAPTURE FORM SUBMIT =====
+document.getElementById('captureSubmitBtn').addEventListener('click', handleCaptureSubmit);
+
+async function handleCaptureSubmit() {
+  const name = document.getElementById('userName').value.trim();
+  const company = document.getElementById('userCompany').value.trim();
+  const email = document.getElementById('userEmail').value.trim();
+
+  // Reset errors
+  ['errName', 'errCompany', 'errEmail'].forEach(id => {
+    document.getElementById(id).textContent = '';
+  });
+  ['userName', 'userCompany', 'userEmail'].forEach(id => {
+    document.getElementById(id).classList.remove('error');
+  });
+
+  // Validate
+  let hasError = false;
+  if (!name) {
+    document.getElementById('errName').textContent = 'お名前をご入力ください';
+    document.getElementById('userName').classList.add('error');
+    hasError = true;
+  }
+  if (!company) {
+    document.getElementById('errCompany').textContent = '会社名をご入力ください';
+    document.getElementById('userCompany').classList.add('error');
+    hasError = true;
+  }
+  if (!email) {
+    document.getElementById('errEmail').textContent = 'メールアドレスをご入力ください';
+    document.getElementById('userEmail').classList.add('error');
+    hasError = true;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('errEmail').textContent = '正しいメールアドレスをご入力ください';
+    document.getElementById('userEmail').classList.add('error');
+    hasError = true;
+  }
+  if (hasError) return;
+
+  // Disable button + loading state
+  const btn = document.getElementById('captureSubmitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="capture-loading"></span>送信中...';
+
+  // Build payload
+  const payload = buildPayload(name, company, email);
+
+  // Send to GAS
+  try {
+    await fetch(GAS_WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.error('Submission error:', err);
+    // Continue anyway - show results even if submission fails
+  }
+
+  // Hide capture form, show results
+  document.getElementById('emailCapture').classList.remove('show');
+  document.getElementById('emailCapture').style.display = 'none';
+  showResults();
+  window.scrollTo({ top: document.getElementById('resultArea').offsetTop - 20, behavior: 'smooth' });
+  reportHeight();
+}
+
+function buildPayload(name, company, email) {
+  // Calculate scores
+  const catScores = {};
+  Object.keys(categories).forEach(catKey => {
+    const cat = categories[catKey];
+    const sum = cat.questions.reduce((acc, q) => acc + (answers[q]?.score || 0), 0);
+    catScores[catKey] = { score: sum, max: cat.questions.length };
+  });
+  const total = Object.values(catScores).reduce((acc, c) => acc + c.score, 0);
+
+  // Find max leak category
+  let maxCat = null;
+  let maxRatio = -1;
+  Object.keys(catScores).forEach(catKey => {
+    const ratio = catScores[catKey].score / catScores[catKey].max;
+    if (ratio > maxRatio) {
+      maxRatio = ratio;
+      maxCat = catKey;
+    }
+  });
+
+  // Answers as raw values
+  const rawAnswers = {};
+  for (let i = 1; i <= 20; i++) {
+    rawAnswers['q' + i] = answers[i]?.value || '';
+  }
+
+  return {
+    name: name,
+    company: company,
+    email: email,
+    timestamp: new Date().toISOString(),
+    totalScore: total,
+    totalTier: getTotalTier(total),
+    cat1Score: catScores.cat1.score,
+    cat2Score: catScores.cat2.score,
+    cat3Score: catScores.cat3.score,
+    cat4Score: catScores.cat4.score,
+    maxLeakCategory: maxCat,
+    maxLeakName: categories[maxCat].name,
+    answers: rawAnswers
+  };
+}
+
+// ===== RESULT MESSAGES =====
+const totalMessages = {
+  green: {
+    tier: '健全タイプ',
+    cls: 'tier-green',
+    msg: '基本的な経営構造はしっかりしています。今は守りより攻めのフェーズ。AI／DXで業務時間を空け、既存顧客への提案を強化する段階です。'
+  },
+  yellow: {
+    tier: '兆候あり',
+    cls: 'tier-yellow',
+    msg: '売上は立っていますが、いくつかの領域で利益が静かに漏れ始めています。早めに手を打てば回収できる規模です。最も漏れている1領域から着手すれば効果が見えやすいタイプです。'
+  },
+  orange: {
+    tier: '進行タイプ',
+    cls: 'tier-orange',
+    msg: '複数の領域で漏れが進行しています。ただしこれは、これまで「気づかぬうちに漏れていたもの」を「気づけた」状態。本当の改善余地が大きい段階です。'
+  },
+  red: {
+    tier: '構造タイプ',
+    cls: 'tier-red',
+    msg: '売上はあるのに利益が残らない構造になっている可能性が高いです。逆に言えば、ここを整えれば一気に利益を回収できる伸びしろの大きい状態でもあります。一つずつ着実に塞いでいきましょう。'
+  }
+};
+
+const categoryMessages = {
+  cat1: {
+    green: { msg: '自社の価値が組織にしっかり浸透している状態です。さらに磨くなら、既存顧客への計画的なアップセルが次の打ち手。', action: '' },
+    yellow: { msg: '価値の伝え方にバラつきが見える状態。営業や提案の場面で機会損失が起きている可能性があります。', action: '自社の価値を一枚紙で言語化する「価値の棚卸し」' },
+    red: { msg: '自社の本当の価値が社内外に届ききっていません。実はこの領域が売上・粗利の両方に最大の影響を及ぼします。値引き常態化、見積もり放置、アップセル機会喪失は、すべて「価値の言語化不足」という同じ根に繋がっています。', action: '自社の価値を一枚紙で言語化する「価値の棚卸し」' }
+  },
+  cat2: {
+    green: { msg: 'コスト管理が行き届いている状態です。', action: '' },
+    yellow: { msg: '慣性で続いている支出が混じってきている可能性。一度棚卸しの時間を取ると見えてきます。', action: 'サブスク・固定費・取引単価の棚卸し' },
+    red: { msg: '慣性で続いているコストが利益を静かに削っている状態です。出口の漏れは気づけばすぐ止められるのが特徴。サブスク・固定費・取引単価を一度洗い出すだけで、月数万〜数十万円の回収が可能なケースが多いです。', action: 'サブスク・固定費・取引単価の棚卸し（最も即効性のある領域）' }
+  },
+  cat3: {
+    green: { msg: '業務が組織として動ける状態に整っています。', action: '' },
+    yellow: { msg: '一部の業務が属人化し始めている兆候。今のうちに形式知化を進めると安心です。', action: '業務の見える化（マニュアル化・ナレッジ化）' },
+    red: { msg: '業務のノウハウや情報が個人の頭の中にしかなく、組織として動けていない状態。属人化・二重作業・無駄会議は社員の時間を奪い、社長の判断を遅らせる最も太い漏れです。ここを整えると、社長の時間が一気に空きます。', action: '業務の見える化（マニュアル化・ナレッジ化）。AIが最も得意な領域' }
+  },
+  cat4: {
+    green: { msg: '経営の数字と情報が見える化されている状態です。', action: '' },
+    yellow: { msg: '数字や情報が分散し始めています。一画面化を進めるタイミング。', action: '経営ダッシュボードの構築' },
+    red: { msg: '数字が見えていない、情報が散らばっている、ノウハウが流出している ——「気づきようがない漏れ」が一番怖い領域です。一方で、データを一画面に集めるだけで、経営判断のスピードと精度が劇的に変わる伸びしろがあります。', action: '経営ダッシュボードの構築と、ナレッジの集約化' }
+  }
+};
+
+function getCategoryTier(score, max) {
+  const ratio = score / max;
+  if (ratio <= 0.2) return 'green';   // 0-1/5 or 0-1/4 or 0-1/6
+  if (ratio <= 0.6) return 'yellow';  // 2-3/5
+  return 'red';                       // 4-5/5
+}
+
+function getCategoryTierByCount(score, max) {
+  // Use absolute thresholds matching B-2 design: 0-1 / 2-3 / 4-5 (or scaled for cat with 4 or 6 questions)
+  if (max === 5) {
+    if (score <= 1) return 'green';
+    if (score <= 3) return 'yellow';
+    return 'red';
+  } else if (max === 4) {
+    if (score <= 1) return 'green';
+    if (score <= 2) return 'yellow';
+    return 'red';
+  } else if (max === 6) {
+    if (score <= 1) return 'green';
+    if (score <= 3) return 'yellow';
+    return 'red';
+  }
+  return 'yellow';
+}
+
+function getTotalTier(score) {
+  if (score <= 5) return 'green';
+  if (score <= 10) return 'yellow';
+  if (score <= 15) return 'orange';
+  return 'red';
+}
+
+function showResults() {
+  // Calculate category scores
+  const catScores = {};
+  Object.keys(categories).forEach(catKey => {
+    const cat = categories[catKey];
+    const sum = cat.questions.reduce((acc, q) => acc + (answers[q]?.score || 0), 0);
+    catScores[catKey] = { score: sum, max: cat.questions.length };
+  });
+
+  // Total
+  const total = Object.values(catScores).reduce((acc, c) => acc + c.score, 0);
+  const totalTier = getTotalTier(total);
+  document.getElementById('totalScore').textContent = total;
+  const tierBadge = document.getElementById('totalTier');
+  tierBadge.textContent = totalMessages[totalTier].tier;
+  tierBadge.className = 'total-score-tier ' + totalMessages[totalTier].cls;
+  document.getElementById('totalMessage').textContent = totalMessages[totalTier].msg;
+
+  // Max leak category (by ratio, then by absolute)
+  let maxCat = null;
+  let maxRatio = -1;
+  Object.keys(catScores).forEach(catKey => {
+    const ratio = catScores[catKey].score / catScores[catKey].max;
+    if (ratio > maxRatio) {
+      maxRatio = ratio;
+      maxCat = catKey;
+    }
+  });
+
+  // Show or hide max leak block based on whether there's a meaningful leak
+  const maxLeakBlock = document.getElementById('maxLeakBlock');
+  if (catScores[maxCat].score >= 2) {
+    maxLeakBlock.style.display = 'block';
+    document.getElementById('maxLeakName').textContent = categories[maxCat].name;
+    const tier = getCategoryTierByCount(catScores[maxCat].score, catScores[maxCat].max);
+    document.getElementById('maxLeakMessage').textContent =
+      `この領域だけで ${catScores[maxCat].score} / ${catScores[maxCat].max} 点。` +
+      `利益漏れ発見相談会では、この1領域に絞って、御社で最初に手をつけるべき具体ポイントを特定します。`;
+  } else {
+    maxLeakBlock.style.display = 'none';
+  }
+
+  // Category results
+  const catResultsEl = document.getElementById('categoryResults');
+  catResultsEl.innerHTML = '';
+  Object.keys(categories).forEach(catKey => {
+    const cat = categories[catKey];
+    const score = catScores[catKey].score;
+    const max = catScores[catKey].max;
+    const tier = getCategoryTierByCount(score, max);
+    const msgs = categoryMessages[catKey][tier];
+    const ratio = (score / max) * 100;
+    const tierLabel = tier === 'green' ? '🟢 健全' : tier === 'yellow' ? '🟡 注意' : '🔴 重点';
+
+    const html = `
+      <div class="category-result">
+        <div class="cat-result-header">
+          <div class="cat-result-title">${cat.name}</div>
+          <div class="cat-result-score tier-${tier}">${tierLabel}　${score} / ${max} 点</div>
+        </div>
+        <div class="cat-result-bar"><div class="cat-result-bar-fill tier-${tier}" style="width: ${ratio}%"></div></div>
+        <div class="cat-result-message">${msgs.msg}</div>
+        ${msgs.action ? `<div class="cat-result-action"><strong>着手の入口:</strong> ${msgs.action}</div>` : ''}
+      </div>
+    `;
+    catResultsEl.insertAdjacentHTML('beforeend', html);
+  });
+
+  // Show result area
+  document.getElementById('resultArea').classList.add('show');
+}
+</script>
+</body>
+</html>
